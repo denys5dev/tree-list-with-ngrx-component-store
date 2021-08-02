@@ -1,0 +1,78 @@
+<br />
+<div class="flex">
+  <dx-button
+    stylingMode="contained"
+    text="add"
+    icon="add"
+    type="normal"
+    [width]="120"
+    (onClick)="addChildNode(null)"
+  >
+  </dx-button>
+
+  <dx-button
+    stylingMode="contained"
+    text="save"
+    icon="save"
+    type="success"
+    [width]="120"
+    (onClick)="save()"
+  >
+  </dx-button>
+</div>
+<br />
+<br />
+<dx-tree-list
+  #tree
+  [dataSource]="dataSource$ | async"
+  keyExpr="id"
+  parentIdExpr="parentId"
+  itemsExpr="children"
+  dataStructure="tree"
+  [columnAutoWidth]="true"
+  [wordWrapEnabled]="true"
+  [showBorders]="true"
+  [autoExpandAll]="true"
+>
+  <dxo-header-filter [visible]="true"></dxo-header-filter>
+  <dxo-selection mode="multiple"></dxo-selection>
+  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+
+  <dxi-column dataField="name" [width]="300"></dxi-column>
+  <dxi-column dataField="description"></dxi-column>
+  <dxi-column dataField="action" cellTemplate="cellTemplate"></dxi-column>
+
+  <div *dxTemplate="let options of 'cellTemplate'">
+    <div class="flex">
+      <dx-button
+        stylingMode="contained"
+        text="add"
+        icon="add"
+        type="normal"
+        [width]="120"
+        (onClick)="addChildNode(options)"
+      >
+      </dx-button>
+
+      <dx-button
+        stylingMode="contained"
+        text="delete"
+        icon="remove"
+        type="danger"
+        [width]="120"
+        (onClick)="deleteNode(options)"
+      >
+      </dx-button>
+
+      <dx-button
+        stylingMode="contained"
+        text="update"
+        icon="edit"
+        type="default"
+        [width]="120"
+        (onClick)="updateNode(options)"
+      >
+      </dx-button>
+    </div>
+  </div>
+</dx-tree-list>
